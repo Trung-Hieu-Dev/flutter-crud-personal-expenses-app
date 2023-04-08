@@ -7,9 +7,15 @@ class NewTransaction extends StatelessWidget {
 
   NewTransaction(this.addTx);
 
+  //submit function
   void submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
+
+    //basic validation submit
+    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+      return;
+    }
 
     addTx(
       enteredTitle,
@@ -32,7 +38,7 @@ class NewTransaction extends StatelessWidget {
                 labelText: 'Title',
               ),
               controller: titleController,
-              onSubmitted: (_) => submitData,
+              onSubmitted: (_) => submitData(),
             ),
             //amount input
             TextField(
@@ -41,7 +47,7 @@ class NewTransaction extends StatelessWidget {
               ),
               controller: amountController,
               keyboardType: TextInputType.numberWithOptions(decimal: true),
-              onSubmitted: (_) => submitData,
+              onSubmitted: (_) => submitData(),
             ),
             //submit button
             FlatButton(
