@@ -17,17 +17,22 @@ class _NewTransactionState extends State<NewTransaction> {
 
   //submit function
   void _submitData() {
+    if (_amountController.text.isEmpty) {
+      return;
+    }
+
     final enteredTitle = _titleController.text;
     final enteredAmount = double.parse(_amountController.text);
 
     //basic validation submit
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return;
     }
 
     widget.addTx(
       enteredTitle,
       enteredAmount,
+      _selectedDate,
     );
 
     //come back to previous screen
