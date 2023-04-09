@@ -78,6 +78,13 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //delete transaction
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id);
+    });
+  }
+
   //modal handler
   void _startAddNewTransaction(BuildContext ctx) {
     //show modal sheet(built-in function)
@@ -120,7 +127,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // Chart section
             Chart(_recentTransactions),
             //User input and List section
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions, _deleteTransaction),
           ],
         ),
       ),
