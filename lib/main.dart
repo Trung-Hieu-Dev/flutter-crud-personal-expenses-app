@@ -46,18 +46,18 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   //list data
   final List<Transaction> _userTransactions = [
-    // Transaction(
-    //   id: 't1',
-    //   title: 'New Shoes',
-    //   amount: 69.9,
-    //   date: DateTime.now(),
-    // ),
-    // Transaction(
-    //   id: 't2',
-    //   title: 'Weekly Groceries',
-    //   amount: 19.9,
-    //   date: DateTime.now(),
-    // ),
+    Transaction(
+      id: 't1',
+      title: 'New Shoes',
+      amount: 69.9,
+      date: DateTime.now(),
+    ),
+    Transaction(
+      id: 't2',
+      title: 'Weekly Groceries',
+      amount: 19.9,
+      date: DateTime.now(),
+    ),
   ];
 
   //create transaction function
@@ -78,14 +78,22 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  //delete transaction
+  void _deleteTransaction(String id) {
+    setState(() {
+      _userTransactions.removeWhere((tx) => tx.id == id);
+    });
+  }
+
   //modal handler
   void _startAddNewTransaction(BuildContext ctx) {
     //show modal sheet(built-in function)
     showModalBottomSheet(
-        context: ctx,
-        builder: (_) {
-          return NewTransaction(_addNewTransaction);
-        });
+      context: ctx,
+      builder: (_) {
+        return NewTransaction(_addNewTransaction);
+      },
+    );
   }
 
   List<Transaction> get _recentTransactions {
@@ -120,7 +128,7 @@ class _MyHomePageState extends State<MyHomePage> {
             // Chart section
             Chart(_recentTransactions),
             //User input and List section
-            TransactionList(_userTransactions),
+            TransactionList(_userTransactions, _deleteTransaction),
           ],
         ),
       ),
